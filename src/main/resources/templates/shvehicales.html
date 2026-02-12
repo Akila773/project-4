@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="admin-base:: Layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+<section>
+    <a th:href="vehicleForm">Add Vehicle</a>
+
+
+    <h1>Admin Vehicles</h1>
+    <table>
+
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Number Plate</th>
+            <th>Photo</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="veh : ${vehicle}">
+            <td th:text="${veh.id}"></td>
+            <td th:text="${veh.brand}"></td>
+            <td th:text="${veh.model}"></td>
+            <td th:text="${veh.numberplate}"></td>
+            <td>
+                <img th:if="${veh.photo != null}" th:src="@{'/uploads/' + ${veh.photo}}" width="100"/>
+            </td>
+            <td>
+                <a th:href="@{'/admin/edit/' + ${veh.id}}">Edit</a> |
+                <a th:href="@{'/admin/delete/' + ${veh.id}}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+</body>
+</html>
+

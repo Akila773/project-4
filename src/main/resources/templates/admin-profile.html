@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="admin-base:: Layout(~{::section})">
+<head>
+    <title>Admin Profile</title>
+</head>
+<body>
+<section>
+    <div class="glass-card">
+        <h1 class="text-center">Welcome, <span th:text="${admin.fullName}"></span> 🎉</h1>
+        <table class="table mt-4">
+            <tr><th>Email</th><td th:text="${admin.email}"></td></tr>
+            <tr><th>Address</th><td th:text="${admin.address}"></td></tr>
+            <tr><th>Qualification</th><td th:text="${admin.phone}"></td></tr>
+        </table>
+
+        <a th:href="@{/admin/admin-register}" class="btn btn-primary">Add admin</a>
+        <a th:href="@{/logout}" class="btn btn-secondary">Logout</a>
+    </div>
+</section>
+</body>
+</html>
+

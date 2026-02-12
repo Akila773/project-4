@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::Layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Vehicle Rental - Your Journey Starts Here</title>
+</head>
+<body>
+
+<section>
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">Find Your Perfect Ride</h1>
+                <p class="hero-subtitle">Discover premium vehicles for every journey. From city commutes to weekend adventures, we've got you covered.</p>
+                <div class="hero-buttons">
+                    <a href="/register" class="btn btn-primary">
+                        <i class="fas fa-user-plus"></i>
+                        Get Started
+                    </a>
+                    <a href="/signin" class="btn btn-secondary">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Sign In
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="car-illustration">
+                    <i class="fas fa-car"></i>
+                    <img src="https://images.unsplash.com/photo-1549317336-206569e8475c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Modern Car" class="vehicle-image">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="features-section">
+        <div class="container">
+            <h2 class="section-title">Why Choose Us?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Safe & Secure</h3>
+                    <p>All our vehicles are regularly maintained and insured for your peace of mind.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>24/7 Support</h3>
+                    <p>Round-the-clock customer support to assist you whenever you need help.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <h3>Best Prices</h3>
+                    <p>Competitive rates with no hidden fees. Transparent pricing for all services.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>Multiple Locations</h3>
+                    <p>Convenient pickup and drop-off locations across the city.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Start Your Journey?</h2>
+                <p>Join thousands of satisfied customers who trust us for their transportation needs.</p>
+                <a href="/register" class="btn btn-cta">
+                    <i class="fas fa-rocket"></i>
+                    Book Your Vehicle Now
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Check if Font Awesome loaded properly
+    document.addEventListener('DOMContentLoaded', function() {
+        const carIcon = document.querySelector('.car-illustration i.fas');
+        const vehicleImage = document.querySelector('.vehicle-image');
+        
+        // Check if Font Awesome is loaded by testing if the icon has the correct font
+        setTimeout(function() {
+            if (carIcon && window.getComputedStyle(carIcon).fontFamily.indexOf('Font Awesome') === -1) {
+                // Font Awesome didn't load, show the image
+                if (vehicleImage) {
+                    vehicleImage.style.display = 'block';
+                    carIcon.style.display = 'none';
+                }
+            }
+        }, 1000);
+    });
+</script>
+
+</body>
+</html>

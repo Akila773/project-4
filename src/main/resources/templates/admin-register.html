@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="admin-base :: Layout(~{::section})">
+<head>
+    <title>Register Admin</title>
+</head>
+<body>
+<section>
+    <div class="glass-card">
+        <h2 class="text-center mb-4">Register Page</h2>
+
+        <th:block th:if="${msg}">
+            <p class="text-center fs-5">[[${msg}]]</p>
+        </th:block>
+
+        <form action="createadmin" method="post">
+            <div class="mb-3">
+                <label>Enter Full Name</label>
+                <input type="text" name="fullName" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label>Enter Email</label>
+                <input type="email" name="email" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label>Enter Address</label>
+                <input type="text" name="address" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label>Enter Phone number</label>
+                <input type="text" name="phone" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label>Enter Password</label>
+                <input type="password" name="password" class="form-control">
+            </div>
+
+            <button class="btn btn-primary col-12">Register</button>
+        </form>
+    </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="afterbase::Layout(~{::section})">
+<head>
+    <meta charset="utf-8">
+    <title>Vehicles</title>
+
+</head>
+<body>
+<section>
+    <div class="container">
+        <h1>Available Vehicles</h1>
+
+        <div class="vehicle-container">
+            <div class="vehicle-card" th:each="v : ${vehicles}">
+                <img th:if="${v.photo != null}" th:src="@{'/uploads/' + ${v.photo}}" alt="Vehicle Image"/>
+                <h3 th:text="${v.brand} + ' ' + ${v.model}"></h3>
+                <p>Number Plate: <span th:text="${v.numberplate}"></span></p><br>
+
+                <a th:href="@{'/Cuser/vehical/' + ${v.id}}"  class="bp btnw">View & Feedback</a>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="Layout(content)">
+<head>
+  <meta charset="UTF-8">
+  <title>Vehicle Rental</title>
+
+  <style>
+    /* Modern Dashboard CSS Variables */
+    :root {
+      --primary-color: #3b82f6;
+      --primary-dark: #2563eb;
+      --secondary-color: #64748b;
+      --accent-color: #f59e0b;
+      --text-dark: #1e293b;
+      --text-light: #64748b;
+      --bg-light: #f8fafc;
+      --white: #ffffff;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+      --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+      --border-radius: 12px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    body {
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      min-height: 100vh;
+    }
+    
+    * {
+      text-decoration: none;
+      box-sizing: border-box;
+    }
+
+    /* Modern Dashboard Navbar */
+    .navbar {
+      background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+      padding: 0 2rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      height: 70px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    
+    .navdiv {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+      height: 100%;
+    }
+
+    .logo a {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      transition: var(--transition);
+    }
+
+    .logo a:hover {
+      color: var(--primary-color);
+      transform: translateY(-1px);
+    }
+
+    .logo a::before {
+      content: '🚗';
+      font-size: 1.5rem;
+    }
+
+    ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: 2rem;
+    }
+
+    li {
+      position: relative;
+    }
+
+    li a {
+      color: var(--white);
+      font-size: 1rem;
+      font-weight: 500;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--border-radius);
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    li a:hover {
+      color: var(--primary-color);
+      background: rgba(59, 130, 246, 0.1);
+      transform: translateY(-2px);
+    }
+
+    li a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+      transition: left 0.5s;
+    }
+
+    li a:hover::before {
+      left: 100%;
+    }
+
+    /* Modern Dashboard Layout */
+    .allcaed {
+      min-height: 80vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: var(--border-radius);
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: var(--shadow-xl);
+      border: 1px solid rgba(0,0,0,0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+    }
+
+    /* Modern Headings */
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--text-dark);
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Modern Profile Container */
+    .profile-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    /* Modern Profile Picture */
+    .profile-pic {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--white);
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      box-shadow: var(--shadow-lg);
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .profile-pic:hover {
+      transform: scale(1.05);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .profile-pic::before {
+      content: '👤';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3rem;
+      color: var(--white);
+    }
+
+
+    /* Modern Form Styling */
+    form input[type="file"] {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      border-radius: var(--border-radius);
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      color: var(--white);
+      border: none;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: var(--shadow-md);
+    }
+
+    form input[type="file"]:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .choose {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      color: var(--white);
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      font-weight: 600;
+      transition: var(--transition);
+      box-shadow: var(--shadow-md);
+      border: none;
+    }
+
+    .choose:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    form button[type="submit"] {
+      margin-top: 1rem;
+      padding: 0.875rem 2rem;
+      border: none;
+      border-radius: var(--border-radius);
+      font-weight: 600;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      color: var(--white);
+      transition: var(--transition);
+      box-shadow: var(--shadow-md);
+      font-size: 1rem;
+    }
+
+    form button[type="submit"]:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* Modern Table Styling */
+    .tb {
+      margin-top: 2rem;
+      background: var(--white);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 0;
+    }
+
+    .table th,
+    .table td {
+      padding: 1rem 1.5rem;
+      text-align: left;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .table th {
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      color: var(--white);
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .table td {
+      color: var(--text-dark);
+      font-weight: 500;
+    }
+
+    .table tr:hover {
+      background: rgba(59, 130, 246, 0.05);
+    }
+
+    /* Modern Button Group */
+    .mp {
+      text-align: center;
+      margin-top: 2rem;
+      padding: 10px;
+      background: var(--bg-light);
+      border-radius: var(--border-radius);
+    }
+
+    /* Modern Button Styles */
+    .bp {
+      display: inline-block;
+      padding: 20px;
+      margin: 0.5rem;
+      border-radius: var(--border-radius);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition);
+      color: var(--white);
+      box-shadow: var(--shadow-md);
+      border: none;
+    }
+
+    /* Primary Button */
+    .btnw {
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    }
+
+    .btnw:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* Danger Button */
+    .btnd {
+      background: linear-gradient(135deg, #dc2626, #b91c1c);
+    }
+
+    .btnd:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* Secondary Button */
+    .btns {
+      background: linear-gradient(135deg, var(--secondary-color), #475569);
+    }
+
+    .btns:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+    /* Modern Vehicle Container */
+    .vehicle-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .vehicle-card {
+      background: var(--white);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .vehicle-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .vehicle-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+    }
+
+    .vehicle-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    .vehicle-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .vehicle-card h3 {
+      margin: 1rem 0 0.5rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      padding: 0 1.5rem;
+    }
+
+    .vehicle-card p {
+      margin: 0.25rem 0;
+      color: var(--text-light);
+      padding: 0 1.5rem 1.5rem;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive Design for Dashboard */
+    @media (max-width: 768px) {
+      .vehicle-container {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+        gap: 1.5rem;
+      }
+
+      .card {
+        padding: 1.5rem;
+        margin: 1rem;
+      }
+
+      .navbar {
+        padding: 0 1rem;
+      }
+
+      ul {
+        gap: 1rem;
+      }
+
+      li a {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+    }
+
+
+  </style>
+
+</head>
+<body>
+<nav class="navbar ">
+  <div class="navdiv">
+    <div class="logo"><a href="#">Vehical Rental</a></div>
+    <ul >
+
+      <li >
+        <a  th:href= "@{/Cuser}">User Dashboard</a>
+      </li>
+      <li >
+         <a  th:href= "@{/Cuser/profile}">My Profile</a>
+      </li>
+      <li >
+        <a  th:href= "@{/Cuser/vehicalViwe}">Vehical list</a>
+      </li>
+      <li >
+          <a  th:href= "@{/logout}">Logout</a>
+      </li>
+    </ul>
+  </div>
+  </div>
+</nav>
+
+
+
+
+
+<!-- Dynamic content will go here -->
+<section class="container mt-5">
+  <div th:replace="${content}"></div>
+</section>
+
+</body>
+</html>

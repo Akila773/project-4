@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="afterbase::Layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>My Profile</title>
+</head>
+<body>
+<section>
+    <div class="allcaed">
+    <div class="card">
+    <h1 >Welcome, <span th:text="${user.fullName}"></span> </h1>
+        <div class="profile-container">
+            <img th:src="@{/uploads/{file}(file=${user.profilePicture})}" alt="Profile Picture" class="profile-pic" />
+
+            <form th:action="@{/Cuser/delete-profile/{id}(id=${user.id})}" method="post">
+                <button type="submit" class="btn btn-danger">Delete Profile Picture</button>
+            </form>
+        </div>
+
+        <form th:action="@{/Cuser/upload-profile/{id}(id=${user.id})}" method="post" enctype="multipart/form-data" class="text-center">
+            <input type="file" id="choose" name="image" accept="image/*" required hidden>
+            <label for="choose" class="btn btn-dark">Choose File</label>
+            <button type="submit" class="btn btn-primary">Upload Profile Picture</button>
+        </form>
+
+
+        <div class="tb">
+        <table class="table">
+            <tr><th>Email</th><td th:text="${user.email}"></td></tr>
+            <tr><th>Address</th><td th:text="${user.address}"></td></tr>
+            <tr><th>Phone Number</th><td th:text="${user.phone}"></td></tr>
+        </table>
+
+        <div class="mp text-center">
+            <a th:href="@{/Cuser/edit}" class="bp btnw">Edit Profile</a>
+            <a th:href="@{/Cuser/delete}" class="bp btnd"
+                onclick="return confirm('Are you sure you want to delete your account?');">
+                Delete Account
+            </a>
+                <a th:href="@{/logout}" class="bp btns">Logout</a>
+        </div>
+    </div>
+    </div>
+    </div>
+</section>
+</body>
+</html>
+
+

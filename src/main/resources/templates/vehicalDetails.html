@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Vehicle Details</title>
+    <style>
+        /* General page styling */
+        body {
+            font-family: Arial, sans-serif;
+            background: #ffffff;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        *{
+            text-decoration: none;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #000000;
+            border-bottom: 6px solid #e5e5e5;
+            height: 50px;
+            width: 100%;
+
+
+        }
+        .navdiv{
+            display: flex;
+            aling: center;
+            justify-content: space-between;
+        }
+
+        .logo a{
+            font-size: 30px;
+            font-weight: 600;
+            color: white;
+        }
+        ul{
+            justify-content: space-between;
+        }
+        li{
+            list-style: none;
+            display: inline-block;
+
+        }
+        li a{
+            color: #ffffff;
+            font-size: 17px;
+            font-weight: bold;
+            margin-right: 25px;
+        }
+        li a:hover{
+            color:#6c757d;
+        }
+
+        /* Vehicle title */
+        h2 {
+            font-size: 28px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        /* Vehicle image */
+        img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Feedback section */
+        h3 {
+            font-size: 22px;
+            color: #34495e;
+            margin-top: 30px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 5px;
+        }
+
+        .feedback {
+            background: #fff;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+        .feedback p {
+            margin: 0;
+            font-size: 15px;
+        }
+
+        .feedback b {
+            color: #2c3e50;
+        }
+        .star-rating {
+            text-align: left;
+            direction: rtl; /* Right to left for correct highlighting */
+            font-size: 1.5rem;
+        }
+
+        .star-rating input[type="radio"] {
+            display: none; /* Hide the radio buttons */
+        }
+
+        .star-rating label {
+            color: black;
+            cursor: pointer;
+        }
+
+        .star-rating input[type="radio"]:checked ~ label,
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            color: gold; /* Highlight selected/hovered stars */
+        }
+
+
+        /* Star rating display */
+        .stars {
+            color: #f39c12;
+            font-size: 14px;
+        }
+
+        /* Feedback form */
+        form {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        textarea {
+            resize: none;
+            min-height: 80px;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #2980b9;
+        }
+
+        select {
+            width: 120px;
+            padding: 5px;
+            font-size: 14px;
+            margin-bottom: 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background: #000000;
+            color: white;
+            padding: 10px 18px;
+            font-size: 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            align-self: flex-start;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #6c757d;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar ">
+    <div class="navdiv">
+        <div class="logo"><a href="#">Vehical Rental</a></div>
+        <ul >
+            <li >
+                <a  th:href= "@{/Cuser}">User Dashboard</a>
+            </li>
+            <li >
+                <a  th:href= "@{/Cuser/profile}">My Profile</a>
+            </li>
+            <li >
+                <a  th:href= "@{/Cuser/vehicalViwe}">Vehical list</a>
+            </li>
+            <li >
+                <a  th:href= "@{/logout}">Logout</a>
+            </li>
+        </ul>
+    </div>
+    </div>
+</nav>
+
+<!-- Vehicle Title -->
+<h2 th:text="|${vehicale.brand} ${vehicale.model}|"></h2>
+
+<!-- Vehicle Image -->
+<img th:src="@{/uploads/{photo}(photo=${vehicale.photo})}" alt="Vehicle Image">
+
+
+<!-- Add Feedback Form -->
+<form th:action="@{/Cuser/vehical/{id}/feedback(id=${vehicale.id})}"
+      th:object="${newFeedback}"
+      method="post">
+
+
+    <div class="star-rating">
+        <input type="radio" id="star5" name="rating" th:field="*{rating}" value="5" />
+        <label for="star5" title="5 stars">&#9733</label>
+
+        <input type="radio" id="star4" name="rating" th:field="*{rating}" value="4" />
+        <label for="star4" title="4 stars">&#9733</label>
+
+        <input type="radio" id="star3" name="rating" th:field="*{rating}" value="3" />
+        <label for="star3" title="3 stars">&#9733</label>
+
+        <input type="radio" id="star2" name="rating" th:field="*{rating}" value="2" />
+        <label for="star2" title="2 stars">&#9733</label>
+
+        <input type="radio" id="star1" name="rating" th:field="*{rating}" value="1" />
+        <label for="star1" title="1 star">&#9733</label>
+    </div>
+
+    <h3>Add Feedback</h3>
+
+    <textarea th:field="*{comment}" placeholder="Write feedback..." ></textarea>
+
+
+
+    <button type="submit">Submit</button>
+</form>
+
+
+<!-- Feedback Section -->
+<h3>Feedbacks</h3>
+<div th:each="f : ${feedbacks}" class="feedback">
+
+    <p class="stars">
+        <span th:each="i : ${#numbers.sequence(1, f.rating)}">&#9733</span>
+    </p>
+
+    <p>
+        <b th:text="${f.username}"></b>:
+        <span th:text="${f.comment}"></span>
+    </p>
+
+
+    <form th:if="${loggedInUser != null and f.user.email == loggedInUser}"
+          th:action="@{/Cuser/vehical/{vehicalId}/feedback/{feedbackId}/delete(vehicalId=${vehicale.id}, feedbackId=${f.id})}"
+          method="post">
+        <button type="submit">Delete</button>
+    </form>
+
+</div>
+
+
+</body>
+</html>

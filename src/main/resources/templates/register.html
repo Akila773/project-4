@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::Layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+
+<section>
+    <div class="Rcard">
+        <div class="register-card">
+
+            <!-- Display message if exists -->
+            <th:block th:if="${msg}">
+                <p class="text-center fs-3">[[${msg}]]</p>
+            </th:block>
+
+            <h2 class="card-title text-center">Register Page</h2>
+
+            <form th:action="@{/createUser}" method="post">
+                <div class="Rinput-box">
+                    <label>Enter Full Name</label>
+                    <input type="text" name="fullName" class="form-control" required>
+                </div>
+
+                <div class="Rinput-box">
+                    <label>Enter Email</label>
+                    <input type="email" name="email" class="form-control" required>
+                </div>
+
+                <div class="Rinput-box">
+                    <label>Enter Address</label>
+                    <input type="text" name="address" class="form-control" required>
+                </div>
+
+                <div class="Rinput-box">
+                    <label>Enter Phone Number</label>
+                    <input type="text" name="phone" class="form-control" required>
+                </div>
+
+                <div class="Rinput-box">
+                    <label>Enter Password</label>
+                    <input type="password" name="password" class="form-control" required>
+                </div>
+
+                <div class="Rby">
+                    <button type="submit" class="Rbtn">Register</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</section>
+
+</body>
+</html>
