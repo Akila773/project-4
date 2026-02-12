@@ -31,7 +31,7 @@ public class UserDtls {
 
     private LocalDateTime lastLogin;
 
-    private String profilePicture;
+    private String profilePictur;
 
 
 }
